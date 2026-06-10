@@ -163,6 +163,21 @@ body {
 <script>
 function fmt(n){ return '$' + Math.round(n).toLocaleString('es-MX'); }
 
+function fromURL(){
+  var p = new URLSearchParams(window.location.search);
+  if(!p.has('nombre') && !p.has('prima')) return;
+  var map = {nombre:'e-nombre', edad:'e-edad', prima:'e-prima',
+             suma:'e-suma', ded:'e-ded', cos:'e-cos', tasa:'e-tasa'};
+  Object.keys(map).forEach(function(k){
+    if(p.has(k) && p.get(k)){
+      document.getElementById(map[k]).value = p.get(k);
+    }
+  });
+  generar();
+}
+
+window.addEventListener('DOMContentLoaded', fromURL);
+
 function generar(){
   var nombre = document.getElementById('e-nombre').value.trim();
   var edad   = document.getElementById('e-edad').value.trim();

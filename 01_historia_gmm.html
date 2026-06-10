@@ -378,14 +378,10 @@
     </div>
 
     <!-- BOTÓN GENERAR TARJETA -->
-    <div style="background:#E6F1FB;border-radius:var(--r-lg);padding:14px 18px;margin-top:4px;display:flex;align-items:center;gap:12px;">
-      <div style="font-size:20px;">📱</div>
-      <div>
-        <div style="font-size:13px;font-weight:500;color:#0C447C;margin-bottom:2px;">Generar tarjeta para WhatsApp</div>
-        <div style="font-size:12px;color:#185FA5;line-height:1.5;">Abre el archivo <strong>04_whatsapp_poliza.html</strong> — captura los datos ahí y genera la tarjeta para compartir.</div>
-      </div>
-    </div>
-    <div style="font-size:11px;color:#888780;text-align:center;margin-top:8px;line-height:1.5;">Ambos archivos deben estar en la misma carpeta.</div>
+    <button onclick="abrirTarjeta()" style="width:100%;background:#185FA5;color:#fff;border:none;border-radius:var(--r-lg);padding:14px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;margin-top:4px;">
+      Generar tarjeta para WhatsApp →
+    </button>
+    <div style="font-size:11px;color:#888780;text-align:center;margin-top:8px;line-height:1.5;">Se abre la tarjeta con los datos ya capturados.</div>
 
   </div>
 </div>
@@ -393,6 +389,27 @@
   <div class="footnote">Fuentes: AMIS 2025 · MetLife México · Referencia de mercado hospitales privados 2024–2025 · Art. 151 LISR. Los costos son referencias orientativas y varían según hospital, diagnóstico y evolución. La deducibilidad aplica según situación particular de cada contribuyente. Este material es informativo y no forma parte del contrato de seguro. · EMA Seguros y Estrategias Patrimoniales · Martín Márquez Guzmán</div>
 
 <script>
+var BASE_URL = 'https://martinmarquez2026.github.io/gmm-smnyl/04_whatsapp_poliza.html';
+
+function abrirTarjeta(){
+  var nombre = document.getElementById('s-nombre').value||'';
+  var edad   = document.getElementById('s-edad').value||'';
+  var prima  = document.getElementById('s-prima').value||'';
+  var suma   = document.getElementById('s-suma').value||'';
+  var ded    = document.getElementById('s-ded').value||'';
+  var cosEl  = document.getElementById('s-cos');
+  var cos    = cosEl.options[cosEl.selectedIndex].text||'';
+  var tasa   = document.getElementById('s-tasa').value||'30';
+  var q = 'nombre='+encodeURIComponent(nombre)
+        +'&edad='+encodeURIComponent(edad)
+        +'&prima='+encodeURIComponent(prima)
+        +'&suma='+encodeURIComponent(suma)
+        +'&ded='+encodeURIComponent(ded)
+        +'&cos='+encodeURIComponent(cos)
+        +'&tasa='+encodeURIComponent(tasa);
+  window.open(BASE_URL+'?'+q, '_blank');
+}
+
 var COS_DATA = [
   {pct:0.10,tope:97000,lbl:'10% · $97k'},
   {pct:0.15,tope:103000,lbl:'15% · $103k'},
