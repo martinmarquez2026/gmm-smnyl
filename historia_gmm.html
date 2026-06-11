@@ -3,507 +3,648 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GMM · Historia · SMNYL · EMA</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<title>GMM · Alfa Medical · EMA Seguros</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #ffffff; --bg2: #f5f5f3; --bg3: #ededeb;
-    --txt: #1a1a18; --txt2: #5f5e5a; --txt3: #888780;
-    --border: rgba(0,0,0,0.12);
-    --blue50: #E6F1FB; --blue200: #85B7EB; --blue600: #185FA5; --blue800: #0C447C;
-    --purple50: #EEEDFE; --purple600: #534AB7; --purple800: #3C3489;
-    --amber50: #FAEEDA; --amber600: #854F0B; --amber800: #633806;
-    --green50: #EAF3DE; --green600: #3B6D11; --green800: #27500A;
-    --teal50: #E1F5EE; --teal600: #0F6E56;
-    --r-md: 8px; --r-lg: 12px;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1c1c1a; --bg2: #2c2c2a; --bg3: #3a3a38;
-      --txt: #f0efe8; --txt2: #b4b2a9; --txt3: #888780;
-      --border: rgba(255,255,255,0.12);
-    }
-  }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--txt); padding: 2rem 1rem; }
-  .wrap { max-width: 700px; margin: 0 auto; }
-
-  .logo-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 0.5px solid var(--border); }
-  .logo-txt { font-size: 13px; font-weight: 500; color: var(--blue600); }
-  .logo-sub { font-size: 11px; color: var(--txt3); }
-  .asesor-tag { margin-left: auto; font-size: 11px; color: var(--txt3); text-align: right; }
-
-  .section { padding: 1.75rem 0; border-bottom: 0.5px solid var(--border); }
-  .eyebrow { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; color: var(--txt3); margin-bottom: 8px; }
-  .big-h { font-size: 22px; font-weight: 500; color: var(--txt); line-height: 1.3; margin-bottom: 10px; }
-  .big-h em { font-style: normal; color: var(--blue600); }
-  .body-txt { font-size: 14px; color: var(--txt2); line-height: 1.7; }
-
-  .pillars { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 1rem; }
-  .pillar { background: var(--bg2); border-radius: var(--r-md); padding: 14px 10px; text-align: center; }
-  .pillar i { font-size: 22px; color: var(--blue600); display: block; margin-bottom: 6px; }
-  .pillar span { font-size: 12px; color: var(--txt2); line-height: 1.4; }
-
-  .sys-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 1rem; }
-  .sys-card { border-radius: var(--r-lg); padding: 14px 12px; border: 0.5px solid var(--border); }
-  .sc-pub { background: var(--bg2); }
-  .sc-priv { background: var(--blue50); border-color: #B5D4F4; }
-  .sys-tag { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
-  .sc-pub .sys-tag { color: var(--txt3); }
-  .sc-priv .sys-tag { color: var(--blue600); }
-  .sys-name { font-size: 14px; font-weight: 500; margin-bottom: 8px; }
-  .sc-pub .sys-name { color: var(--txt); }
-  .sc-priv .sys-name { color: var(--blue800); }
-  .sys-pros { list-style: none; display: flex; flex-direction: column; gap: 5px; }
-  .sys-pros li { font-size: 12px; line-height: 1.45; display: flex; gap: 6px; align-items: flex-start; }
-  .sc-pub .sys-pros li { color: var(--txt2); }
-  .sc-priv .sys-pros li { color: var(--blue600); }
-  .bridge { background: var(--purple50); border-radius: var(--r-md); padding: 12px 14px; margin-top: 10px; font-size: 13px; color: var(--purple600); line-height: 1.6; }
-  .bridge strong { color: var(--purple800); font-weight: 500; }
-
-  .age-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 1rem; }
-  .age-card { border: 0.5px solid var(--border); border-radius: var(--r-lg); padding: 14px 12px; }
-  .age-pill { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; margin-bottom: 10px; }
-  .ap30 { background: var(--blue50); color: var(--blue600); }
-  .ap40 { background: var(--purple50); color: var(--purple600); }
-  .ap50 { background: var(--amber50); color: var(--amber600); }
-  .age-head { font-size: 13px; font-weight: 500; color: var(--txt); margin-bottom: 10px; }
-  .pad-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
-  .pad-item { display: flex; flex-direction: column; gap: 2px; }
-  .pad-name { font-size: 12px; color: var(--txt); }
-  .pad-cost { font-size: 11px; font-weight: 500; }
-  .c30 { color: var(--blue600); } .c40 { color: var(--purple600); } .c50 { color: var(--amber600); }
-  .pad-div { height: 0.5px; background: var(--border); margin: 3px 0; }
-
-  .flow { display: flex; flex-direction: column; gap: 0; margin-top: 1rem; }
-  .flow-step { display: grid; grid-template-columns: 36px 1fr; gap: 12px; }
-  .flow-line { display: flex; flex-direction: column; align-items: center; }
-  .flow-num { width: 32px; height: 32px; border-radius: 50%; background: var(--blue50); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; color: var(--blue600); flex-shrink: 0; }
-  .flow-connector { width: 1px; height: 20px; background: var(--border); margin: 3px 0; }
-  .flow-content { padding-bottom: 16px; }
-  .flow-title { font-size: 13px; font-weight: 500; color: var(--txt); margin-bottom: 3px; }
-  .flow-desc { font-size: 12px; color: var(--txt2); line-height: 1.55; }
-
-  .pct-box { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 1rem; }
-  .pct-card { border-radius: var(--r-lg); padding: 16px 12px; text-align: center; }
-  .pc-you { background: var(--amber50); border: 0.5px solid #FAC775; }
-  .pc-mnyl { background: var(--green50); border: 0.5px solid #C0DD97; }
-  .pct-num { font-size: 30px; font-weight: 500; }
-  .pc-you .pct-num { color: var(--amber800); }
-  .pc-mnyl .pct-num { color: var(--green800); }
-  .pct-lbl { font-size: 12px; margin-top: 3px; }
-  .pc-you .pct-lbl { color: var(--amber600); }
-  .pc-mnyl .pct-lbl { color: var(--green600); }
-  .pct-sub { font-size: 11px; margin-top: 4px; }
-  .pc-you .pct-sub { color: var(--amber600); }
-  .pc-mnyl .pct-sub { color: var(--green600); }
-
-  .fiscal-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 1rem; }
-  .fc { background: var(--bg2); border-radius: var(--r-md); padding: 12px; text-align: center; }
-  .fc-n { font-size: 18px; font-weight: 500; color: var(--txt); }
-  .fc-l { font-size: 11px; color: var(--txt2); margin-top: 4px; line-height: 1.4; }
-  .fiscal-note { font-size: 12px; color: var(--txt2); margin-top: 10px; background: var(--bg2); border-radius: var(--r-md); padding: 10px 12px; line-height: 1.6; }
-  .fiscal-note strong { color: var(--txt); font-weight: 500; }
-
-  .footnote { font-size: 10px; color: var(--txt3); margin-top: 1.5rem; line-height: 1.6; padding-top: 1rem; border-top: 0.5px solid var(--border); }
-
-  @media (max-width: 520px) {
-    .pillars { grid-template-columns: 1fr 1fr; }
-    .sys-grid, .age-grid { grid-template-columns: 1fr; }
-    .pct-box, .fiscal-row { grid-template-columns: 1fr 1fr; }
-  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#fff;--bg2:#f5f5f3;--bg3:#ededeb;
+  --txt:#1a1a18;--txt2:#5f5e5a;--txt3:#888780;
+  --border:rgba(0,0,0,0.12);
+  --blue50:#E6F1FB;--blue600:#185FA5;--blue800:#0C447C;
+  --purple50:#EEEDFE;--purple600:#534AB7;--purple800:#3C3489;
+  --amber50:#FAEEDA;--amber600:#854F0B;--amber800:#633806;
+  --green50:#EAF3DE;--green600:#3B6D11;--green800:#27500A;
+  --red50:#FCEBEB;--red600:#A32D2D;
+  --r-md:8px;--r-lg:12px;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#e8e8e6;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:0;}
+.shell{width:100%;max-width:720px;background:var(--bg);min-height:100vh;display:flex;flex-direction:column;box-shadow:0 0 40px rgba(0,0,0,0.10);}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:0.5px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:10;}
+.topbar-brand{font-size:12px;font-weight:500;color:var(--blue600);}
+.topbar-sub{font-size:11px;color:var(--txt3);}
+.dots{display:flex;gap:5px;align-items:center;}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--bg3);cursor:pointer;transition:background .2s;}
+.dot.active{background:var(--blue600);}
+.dot.done{background:#B5D4F4;}
+.slides{flex:1;}
+.slide{display:none;padding:26px 22px 20px;animation:fi .22s ease;}
+.slide.active{display:block;}
+@keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-top:0.5px solid var(--border);background:var(--bg);position:sticky;bottom:0;}
+.btn{background:var(--blue600);color:#fff;border:none;border-radius:var(--r-lg);padding:11px 22px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;}
+.btn:hover{background:var(--blue800);}
+.btn.sec{background:var(--bg2);color:var(--txt2);}
+.btn.sec:hover{background:var(--bg3);}
+.counter{font-size:12px;color:var(--txt3);}
+.ey{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--txt3);margin-bottom:8px;}
+.h1{font-size:22px;font-weight:500;color:var(--txt);line-height:1.3;margin-bottom:10px;}
+.h1 em{font-style:normal;color:var(--blue600);}
+.h2{font-size:17px;font-weight:500;color:var(--txt);line-height:1.35;margin-bottom:12px;}
+.h2 em{font-style:normal;color:var(--blue600);}
+.body{font-size:14px;color:var(--txt2);line-height:1.7;margin-bottom:12px;}
+/* sistemas */
+.sys-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:1rem;}
+.sys-card{border-radius:var(--r-lg);padding:14px 12px;border:0.5px solid var(--border);}
+.sc-pub{background:var(--bg2);}
+.sc-priv{background:var(--blue50);border-color:#B5D4F4;}
+.sys-tag{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;}
+.sc-pub .sys-tag{color:var(--txt3);}
+.sc-priv .sys-tag{color:var(--blue600);}
+.sys-name{font-size:14px;font-weight:500;margin-bottom:8px;}
+.sc-pub .sys-name{color:var(--txt);}
+.sc-priv .sys-name{color:var(--blue800);}
+.sys-li{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.sys-li li{font-size:12px;line-height:1.45;display:flex;gap:6px;align-items:flex-start;color:var(--txt2);}
+.sc-priv .sys-li li{color:var(--blue600);}
+.bridge{background:var(--purple50);border-radius:var(--r-md);padding:12px 14px;margin-top:12px;font-size:13px;color:var(--purple600);line-height:1.6;}
+.bridge strong{color:var(--purple800);font-weight:500;}
+/* tabla */
+.cost-table{width:100%;border-collapse:collapse;margin-top:1rem;}
+.cost-table th{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.04em;color:var(--txt3);padding:8px 10px;text-align:left;border-bottom:1px solid var(--border);}
+.cost-table td{font-size:13px;padding:11px 10px;border-bottom:0.5px solid var(--border);vertical-align:middle;}
+.cost-table tr:last-child td{border-bottom:none;}
+.age-pill{display:inline-block;font-size:11px;font-weight:500;padding:2px 9px;border-radius:20px;}
+.ap30{background:var(--blue50);color:var(--blue600);}
+.ap40{background:var(--purple50);color:var(--purple600);}
+.ap50{background:var(--amber50);color:var(--amber600);}
+.cost-hi{font-weight:500;color:var(--red600);}
+.alert-box{background:var(--red50);border-radius:var(--r-md);padding:12px 14px;margin-top:12px;font-size:13px;color:var(--red600);line-height:1.6;}
+/* GMM flow */
+.gmm-flow{display:flex;flex-direction:column;gap:0;margin:1rem 0;}
+.gmm-step{display:grid;grid-template-columns:36px 1fr;gap:12px;}
+.gmm-line{display:flex;flex-direction:column;align-items:center;}
+.gmm-num{width:32px;height:32px;border-radius:50%;background:var(--blue50);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--blue600);flex-shrink:0;}
+.gmm-conn{width:1px;height:18px;background:var(--border);margin:3px 0;}
+.gmm-content{padding-bottom:14px;}
+.gmm-t{font-size:13px;font-weight:500;color:var(--txt);margin-bottom:3px;}
+.gmm-d{font-size:12px;color:var(--txt2);line-height:1.55;}
+.pct-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:1rem;}
+.pct-card{border-radius:var(--r-lg);padding:14px;text-align:center;}
+.pc-you{background:var(--amber50);border:0.5px solid #FAC775;}
+.pc-mnyl{background:var(--green50);border:0.5px solid #C0DD97;}
+.pct-n{font-size:28px;font-weight:500;}
+.pc-you .pct-n{color:var(--amber800);}
+.pc-mnyl .pct-n{color:var(--green800);}
+.pct-l{font-size:12px;margin-top:3px;}
+.pc-you .pct-l{color:var(--amber600);}
+.pc-mnyl .pct-l{color:var(--green600);}
+.pct-s{font-size:11px;margin-top:3px;}
+.pc-you .pct-s{color:var(--amber600);}
+.pc-mnyl .pct-s{color:var(--green600);}
+.scale-row{display:grid;grid-template-columns:100px 1fr 110px;align-items:center;gap:10px;margin-bottom:7px;}
+.scale-lbl{font-size:12px;color:var(--txt2);}
+.scale-bar{height:11px;border-radius:4px;overflow:hidden;display:flex;background:var(--bg3);}
+.scale-pct{font-size:11px;color:var(--txt3);text-align:right;}
+.b-ded{background:#FAC775;}.b-cos{background:#F0997B;}.b-mnyl{background:#97C459;}
+.scale-note{font-size:12px;color:var(--txt2);margin-top:10px;background:var(--bg2);border-radius:var(--r-md);padding:10px 12px;line-height:1.6;}
+/* simulador */
+.sim-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.fg{display:flex;flex-direction:column;gap:4px;}
+.fg label{font-size:11px;color:var(--txt2);}
+.fg input,.fg select{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--r-md);padding:8px 10px;font-size:13px;color:var(--txt);font-family:inherit;outline:none;width:100%;}
+.fg input:focus,.fg select:focus{border-color:var(--blue600);background:#fff;}
+input[type=range]{width:100%;accent-color:var(--blue600);}
+.slider-val{font-size:24px;font-weight:500;color:var(--txt);margin-top:4px;}
+.scards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:10px;}
+.scard{border:0.5px solid var(--border);border-radius:var(--r-lg);padding:11px 10px;cursor:pointer;background:var(--bg);}
+.scard.sel{border:2px solid var(--blue600);background:var(--blue50);}
+.scard-tag{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;}
+.scard-ded{font-size:13px;font-weight:500;color:var(--txt);margin-bottom:1px;}
+.scard-cos{font-size:11px;color:var(--txt2);margin-bottom:8px;}
+.sbar{height:7px;border-radius:3px;overflow:hidden;display:flex;background:var(--bg3);margin-bottom:6px;}
+.srow{display:flex;justify-content:space-between;margin-bottom:2px;}
+.sl{font-size:11px;color:var(--txt2);}
+.sv{font-size:12px;font-weight:500;}
+.sv.amb{color:var(--amber800);}
+.sv.grn{color:var(--green800);}
+.sbadge{display:inline-block;font-size:10px;padding:2px 6px;border-radius:4px;font-weight:500;margin-top:4px;}
+.b-hi{background:var(--red50);color:var(--red600);}
+.b-mid{background:var(--blue50);color:var(--blue600);}
+.b-lo{background:var(--green50);color:var(--green600);}
+.leg{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+.leg-i{display:flex;align-items:center;gap:3px;font-size:11px;color:var(--txt3);}
+.leg-d{width:8px;height:8px;border-radius:2px;}
+.insight{background:var(--bg2);border-left:3px solid var(--blue600);border-radius:0 var(--r-md) var(--r-md) 0;padding:10px 12px;font-size:12px;color:var(--txt2);line-height:1.65;}
+.insight strong{color:var(--txt);font-weight:500;}
+/* fiscal */
+.fiscal-box{background:var(--purple50);border-radius:var(--r-lg);padding:16px 18px;margin-bottom:12px;}
+.fiscal-ey{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--purple600);margin-bottom:4px;}
+.fiscal-h{font-size:15px;font-weight:500;color:#26215C;margin-bottom:12px;line-height:1.4;}
+.fiscal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
+.fr{background:#fff;border-radius:var(--r-md);padding:10px;text-align:center;}
+.fr-v{font-size:15px;font-weight:500;color:var(--purple800);}
+.fr-l{font-size:10px;color:var(--purple600);margin-top:2px;line-height:1.3;}
+.fiscal-nota{font-size:12px;color:var(--purple600);line-height:1.6;}
+/* cotizador */
+.hosp-box{background:var(--green50);border-radius:var(--r-lg);padding:14px 16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+.hosp-t{font-size:13px;font-weight:500;color:var(--green800);margin-bottom:3px;}
+.hosp-s{font-size:12px;color:var(--green600);line-height:1.5;}
+.btn-link{display:inline-block;background:var(--green600);color:#fff;border-radius:var(--r-md);padding:10px 16px;font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap;}
+.btn-link.blue{background:var(--blue600);}
+.cot-box{background:var(--blue50);border-radius:var(--r-lg);padding:18px;text-align:center;margin-bottom:12px;}
+.cot-title{font-size:15px;font-weight:500;color:var(--blue800);margin-bottom:6px;}
+.cot-sub{font-size:13px;color:var(--blue600);margin-bottom:14px;line-height:1.5;}
+.cot-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;}
+.cot-step{background:#fff;border-radius:var(--r-md);padding:10px;text-align:center;}
+.cot-step-n{font-size:18px;font-weight:500;color:var(--blue600);margin-bottom:3px;}
+.cot-step-l{font-size:11px;color:var(--txt2);line-height:1.3;}
+/* email */
+.email-box{background:var(--bg2);border-radius:var(--r-lg);padding:18px 20px;}
+.email-t{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--txt3);margin-bottom:12px;}
+.email-input{width:100%;background:#fff;border:0.5px solid var(--border);border-radius:var(--r-md);padding:10px 12px;font-size:14px;color:var(--txt);font-family:inherit;outline:none;margin-bottom:12px;}
+.email-input:focus{border-color:var(--blue600);}
+.btn-gmail{width:100%;background:var(--blue800);color:#fff;border:none;border-radius:var(--r-lg);padding:13px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;}
+.btn-gmail:hover{background:var(--blue600);}
+.email-hint{font-size:11px;color:var(--txt3);margin-top:8px;line-height:1.5;}
+.resumen-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.rchip{background:#fff;border-radius:var(--r-md);padding:9px 12px;border:0.5px solid var(--border);}
+.rchip-l{font-size:10px;color:var(--txt3);margin-bottom:2px;}
+.rchip-v{font-size:13px;font-weight:500;color:var(--txt);}
+@media(max-width:520px){
+  .sys-grid,.pct-grid,.scards,.fiscal-grid,.cot-steps{grid-template-columns:1fr;}
+  .sim-fields,.resumen-grid{grid-template-columns:1fr;}
+  .scale-row{grid-template-columns:80px 1fr 80px;}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="shell">
 
-  <div class="logo-bar">
-    <div>
-      <div class="logo-txt">Seguros Monterrey New York Life</div>
-      <div class="logo-sub">Alfa Medical Íntegro · GMM</div>
-    </div>
-    <div class="asesor-tag">Asesor: Martín Márquez Guzmán<br>EMA Seguros y Estrategias Patrimoniales</div>
+<div class="topbar">
+  <div>
+    <div class="topbar-brand">Seguros Monterrey New York Life · GMM</div>
+    <div class="topbar-sub">Martín Márquez Guzmán · EMA Seguros · CNSF G408760</div>
   </div>
+  <div class="dots" id="dots"></div>
+</div>
 
-  <!-- 1 -->
-  <div class="section">
-    <div class="eyebrow">El punto de partida</div>
-    <h1 class="big-h">La salud no es un lujo.<br><em>Es la base de todo lo demás.</em></h1>
-    <p class="body-txt">Trabajar, proveer, educar a los hijos, estar presente con la familia — todo depende de estar bien. Un evento de salud inesperado no solo afecta el cuerpo: afecta los ingresos, los proyectos y el patrimonio construido con años de esfuerzo.</p>
-    <div class="pillars">
-      <div class="pillar"><i class="ti ti-briefcase"></i><span>Capacidad de trabajar y generar ingresos</span></div>
-      <div class="pillar"><i class="ti ti-users"></i><span>Ser proveedor y estar presente en familia</span></div>
-      <div class="pillar"><i class="ti ti-school"></i><span>Sostener la educación y el futuro de los hijos</span></div>
+<div class="slides">
+
+<!-- S1: SALUD COMO BASE -->
+<div class="slide active" id="s0">
+  <div class="ey">El punto de partida</div>
+  <h1 class="h1">La salud no es un lujo.<br><em>Es la base de todo lo demás.</em></h1>
+  <p class="body">Trabajar, proveer, educar a los hijos, estar presente con la familia — todo depende de estar bien. Un evento de salud inesperado no solo afecta el cuerpo: puede paralizar los ingresos, comprometer los ahorros y poner en riesgo el patrimonio construido con años de esfuerzo.</p>
+  <p class="body">Hoy quiero mostrarte cómo funciona una herramienta financiera diseñada para que un evento de salud nunca se convierta en una crisis económica.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:1.5rem;">
+    <div style="background:var(--bg2);border-radius:var(--r-lg);padding:20px 12px;text-align:center;">
+      <svg viewBox="0 0 56 56" width="52" height="52" style="margin:0 auto 10px;display:block;" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="56" height="56" rx="14" fill="#E6F1FB"/>
+        <path d="M18 38V26a2 2 0 0 1 .586-1.414l8-8a2 2 0 0 1 2.828 0l8 8A2 2 0 0 1 38 26v12a2 2 0 0 1-2 2H20a2 2 0 0 1-2-2Z" stroke="#185FA5" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M24 40v-8h8v8" stroke="#185FA5" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+      <div style="font-size:13px;font-weight:500;color:var(--txt);margin-bottom:3px;">Ingresos</div>
+      <div style="font-size:11px;color:var(--txt2);line-height:1.4;">Trabajar y generar para la familia</div>
     </div>
-  </div>
-
-  <!-- 2 -->
-  <div class="section">
-    <div class="eyebrow">El sistema de salud en México</div>
-    <h2 class="big-h" style="font-size:18px;">Tenemos atención médica disponible.<br>La pregunta es: ¿<em>qué tipo</em>?</h2>
-    <div class="sys-grid">
-      <div class="sys-card sc-pub">
-        <div class="sys-tag">Sistema público</div>
-        <div class="sys-name">IMSS · ISSSTE · Salud</div>
-        <ul class="sys-pros">
-          <li><i class="ti ti-check" style="font-size:12px;color:#3B6D11;flex-shrink:0;margin-top:1px;"></i>Accesible y gratuito</li>
-          <li><i class="ti ti-check" style="font-size:12px;color:#3B6D11;flex-shrink:0;margin-top:1px;"></i>Cobertura nacional amplia</li>
-          <li><i class="ti ti-clock" style="font-size:12px;color:#854F0B;flex-shrink:0;margin-top:1px;"></i>Tiempos de espera prolongados</li>
-          <li><i class="ti ti-alert-triangle" style="font-size:12px;color:#854F0B;flex-shrink:0;margin-top:1px;"></i>Infraestructura y medicamentos limitados</li>
-          <li><i class="ti ti-alert-triangle" style="font-size:12px;color:#854F0B;flex-shrink:0;margin-top:1px;"></i>Diagnóstico oportuno no garantizado</li>
-        </ul>
-      </div>
-      <div class="sys-card sc-priv">
-        <div class="sys-tag">Sistema privado</div>
-        <div class="sys-name">H. Ángeles · Médica Sur · ABC</div>
-        <ul class="sys-pros">
-          <li><i class="ti ti-check" style="font-size:12px;color:#185FA5;flex-shrink:0;margin-top:1px;"></i>Atención inmediata sin esperas</li>
-          <li><i class="ti ti-check" style="font-size:12px;color:#185FA5;flex-shrink:0;margin-top:1px;"></i>Diagnóstico oportuno · intervención rápida</li>
-          <li><i class="ti ti-check" style="font-size:12px;color:#185FA5;flex-shrink:0;margin-top:1px;"></i>Tecnología e infraestructura de primer nivel</li>
-          <li><i class="ti ti-check" style="font-size:12px;color:#185FA5;flex-shrink:0;margin-top:1px;"></i>Medicamentos disponibles de inmediato</li>
-          <li><i class="ti ti-alert-circle" style="font-size:12px;color:#185FA5;flex-shrink:0;margin-top:1px;"></i>Costo fuera del alcance sin respaldo</li>
-        </ul>
-      </div>
+    <div style="background:var(--bg2);border-radius:var(--r-lg);padding:20px 12px;text-align:center;">
+      <svg viewBox="0 0 56 56" width="52" height="52" style="margin:0 auto 10px;display:block;" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="56" height="56" rx="14" fill="#E6F1FB"/>
+        <circle cx="28" cy="20" r="5" stroke="#185FA5" stroke-width="2"/>
+        <path d="M20 38c0-4.418 3.582-8 8-8s8 3.582 8 8" stroke="#185FA5" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="18" cy="22" r="3.5" stroke="#185FA5" stroke-width="1.5"/>
+        <path d="M12 36c0-3 2.5-5.5 5.5-5.5" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="38" cy="22" r="3.5" stroke="#185FA5" stroke-width="1.5"/>
+        <path d="M44 36c0-3-2.5-5.5-5.5-5.5" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div style="font-size:13px;font-weight:500;color:var(--txt);margin-bottom:3px;">Familia</div>
+      <div style="font-size:11px;color:var(--txt2);line-height:1.4;">Proveer y estar presente cada día</div>
     </div>
-    <div class="bridge">La atención privada oportuna puede ser <strong>la diferencia entre recuperarse pronto o no recuperarse del todo.</strong> El problema no es la calidad — es que pagar un evento grave de bolsillo no es una opción real para la mayoría.</div>
-  </div>
-
-  <!-- 3 -->
-  <div class="section">
-    <div class="eyebrow">Epidemiología · Costos en hospital privado de primer nivel</div>
-    <h2 class="big-h" style="font-size:18px;">¿Qué le pasa a cada persona<br>según su etapa de vida?</h2>
-    <div class="age-grid">
-      <div class="age-card">
-        <span class="age-pill ap30">30–39 años</span>
-        <div class="age-head">Accidentes y emergencias</div>
-        <ul class="pad-list">
-          <li class="pad-item"><span class="pad-name">Fractura con cirugía</span><span class="pad-cost c30">$80,000–$150,000</span></li>
-          <div class="pad-div"></div>
-          <li class="pad-item"><span class="pad-name">Apendicitis</span><span class="pad-cost c30">$60,000–$120,000</span></li>
-          <div class="pad-div"></div>
-          <li class="pad-item"><span class="pad-name">Parto/cesárea complicada</span><span class="pad-cost c30">$80,000–$200,000</span></li>
-          <div class="pad-div"></div>
-          <li class="pad-item"><span class="pad-name">Hernia con cirugía</span><span class="pad-cost c30">$50,000–$100,000</span></li>
-        </ul>
-      </div>
-      <div class="age-card">
-        <span class="age-pill ap40">40–49 años</span>
-        <div class="age-head">Enfermedades crónicas</div>
-        <ul class="pad-list">
-          <li class="pad-item"><span class="pad-name">Cáncer de mama (tratamiento)</span><span class="pad-cost c40">$250,000–$500,000</span></li>
-          <div class="pad-div"></div>
-          <li class="pad-item"><span class="pad-name">Diabetes con complicaciones</span><span class="pad-cost c40">$80,000–$200,000</span></li>
-          <div class="pad-div"></div>
-          <li class="pad-item"><span class="pad-name">Hipertensión severa</span><span class="pad-cost c40">$60,000–$120,000</span></li>
-          <div class="pad-div"></div>
-          <li class="pad-item"><span class="pad-name">Colecistectomía</span><span class="pad-cost c40">$70,000–$130,000</span></li>
-        </ul>
-      </div>
-      <div class="age-card">
-        <span class="age-pill ap50">50+ años</span>
-        <div class="age-head">Eventos de alto costo</div>
-        <ul class="pad-list">
-          <li class="pad-item"><span class="pad-name">Infarto · bypass</span><span class="pad-cost c50">$600,000–$1,000,000</span></li>
-          <div class="pad-div"></div>
-          <li class="pad-item"><span class="pad-name">Hemorragia cerebral</span><span class="pad-cost c50">$300,000–$600,000</span></li>
-          <div class="pad-div"></div>
-          <li class="pad-item"><span class="pad-name">Cáncer de próstata</span><span class="pad-cost c50">$200,000–$400,000</span></li>
-          <div class="pad-div"></div>
-          <li class="pad-item"><span class="pad-name">Reemplazo de cadera</span><span class="pad-cost c50">$150,000–$300,000</span></li>
-        </ul>
-      </div>
+    <div style="background:var(--bg2);border-radius:var(--r-lg);padding:20px 12px;text-align:center;">
+      <svg viewBox="0 0 56 56" width="52" height="52" style="margin:0 auto 10px;display:block;" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="56" height="56" rx="14" fill="#E6F1FB"/>
+        <path d="M14 28l14-12 14 12" stroke="#185FA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="20" y="28" width="16" height="12" rx="1" stroke="#185FA5" stroke-width="2"/>
+        <path d="M25 40v-6h6v6" stroke="#185FA5" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+      <div style="font-size:13px;font-weight:500;color:var(--txt);margin-bottom:3px;">Educación</div>
+      <div style="font-size:11px;color:var(--txt2);line-height:1.4;">Sostener el futuro de los hijos</div>
     </div>
   </div>
-
-  <!-- 4 -->
-  <div class="section">
-    <div class="eyebrow">El instrumento financiero</div>
-    <h2 class="big-h" style="font-size:18px;">¿Cómo funciona una póliza GMM?</h2>
-    <div class="flow">
-      <div class="flow-step">
-        <div class="flow-line"><div class="flow-num">1</div><div class="flow-connector"></div></div>
-        <div class="flow-content"><div class="flow-title">Tú aportas una prima anual fija</div><div class="flow-desc">Una cantidad programada, conocida y planificable. Sin sorpresas al año siguiente.</div></div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-line"><div class="flow-num">2</div><div class="flow-connector"></div></div>
-        <div class="flow-content"><div class="flow-title">SMNYL pone a tu disposición $170,000,000</div><div class="flow-desc">Disponible desde el primer día. No necesitas tenerlo ahorrado — el riesgo se transfiere.</div></div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-line"><div class="flow-num">3</div><div class="flow-connector"></div></div>
-        <div class="flow-content"><div class="flow-title">Ocurre un evento — SMNYL paga directo al hospital</div><div class="flow-desc">Sin anticipar dinero. Sin trámites complicados. Tú solo cubres deducible y coaseguro — y mientras mayor sea la factura, menor es tu participación proporcional.</div></div>
-      </div>
-    </div>
-
-    <div style="margin-top:1.25rem;">
-      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:#888780;margin-bottom:10px;">Tu aportación baja conforme sube la factura</div>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div style="display:grid;grid-template-columns:110px 1fr 100px;align-items:center;gap:10px;">
-          <div style="font-size:12px;color:#5f5e5a;">Hasta $100k</div>
-          <div style="height:12px;border-radius:4px;overflow:hidden;display:flex;background:#f0f0ee;"><div style="width:22%;background:#FAC775;"></div><div style="width:78%;background:#97C459;"></div></div>
-          <div style="font-size:11px;color:#5f5e5a;text-align:right;">tú ~22% · SMNYL ~78%</div>
-        </div>
-        <div style="display:grid;grid-template-columns:110px 1fr 100px;align-items:center;gap:10px;">
-          <div style="font-size:12px;color:#5f5e5a;">$100k – $300k</div>
-          <div style="height:12px;border-radius:4px;overflow:hidden;display:flex;background:#f0f0ee;"><div style="width:16%;background:#FAC775;"></div><div style="width:4%;background:#F0997B;"></div><div style="width:80%;background:#97C459;"></div></div>
-          <div style="font-size:11px;color:#5f5e5a;text-align:right;">tú ~16% · SMNYL ~84%</div>
-        </div>
-        <div style="display:grid;grid-template-columns:110px 1fr 100px;align-items:center;gap:10px;">
-          <div style="font-size:12px;color:#5f5e5a;">$300k – $600k</div>
-          <div style="height:12px;border-radius:4px;overflow:hidden;display:flex;background:#f0f0ee;"><div style="width:10%;background:#FAC775;"></div><div style="width:2%;background:#F0997B;"></div><div style="width:88%;background:#97C459;"></div></div>
-          <div style="font-size:11px;color:#5f5e5a;text-align:right;">tú ~12% · SMNYL ~88%</div>
-        </div>
-        <div style="display:grid;grid-template-columns:110px 1fr 100px;align-items:center;gap:10px;">
-          <div style="font-size:12px;color:#5f5e5a;">Más de $600k</div>
-          <div style="height:12px;border-radius:4px;overflow:hidden;display:flex;background:#f0f0ee;"><div style="width:7%;background:#FAC775;"></div><div style="width:3%;background:#F0997B;"></div><div style="width:90%;background:#97C459;"></div></div>
-          <div style="font-size:11px;color:#5f5e5a;text-align:right;">tú ~10% · SMNYL ~90%</div>
-        </div>
-      </div>
-      <div style="display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;">
-        <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#888780;"><div style="width:9px;height:9px;border-radius:2px;background:#FAC775;"></div>Deducible</div>
-        <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#888780;"><div style="width:9px;height:9px;border-radius:2px;background:#F0997B;"></div>Coaseguro</div>
-        <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#888780;"><div style="width:9px;height:9px;border-radius:2px;background:#97C459;"></div>Cubre SMNYL</div>
-      </div>
-      <div style="font-size:12px;color:#5f5e5a;margin-top:10px;background:#f5f5f3;border-radius:8px;padding:10px 12px;line-height:1.6;">
-        El deducible es fijo. El coaseguro crece con la factura pero tiene un <strong style="color:#1a1a18;">tope máximo</strong>: una vez alcanzado, SMNYL cubre el 100% del resto. Por eso en eventos grandes, tu participación proporcional baja.
-      </div>
-    </div>
-  </div>
-
-  <!-- 5 FISCAL -->
-  <div class="section">
-    <div class="eyebrow">Beneficio adicional · Art. 151 LISR</div>
-    <h2 class="big-h" style="font-size:18px;">Hacienda puede devolverte <em>hasta el 30%</em><br>de lo que pagas de prima.</h2>
-    <div class="fiscal-row">
-      <div class="fc"><div class="fc-n">Tu prima</div><div class="fc-l">se determina según edad, plan y asegurados en la cotización</div></div>
-      <div class="fc"><div class="fc-n">Deducible fiscal</div><div class="fc-l">100% de la prima · Art. 151 LISR · personas físicas</div></div>
-      <div class="fc"><div class="fc-n">20%–30%</div><div class="fc-l">devolución estimada según tu tasa impositiva ISR</div></div>
-    </div>
-    <div class="fiscal-note">La prima es <strong>deducible de impuestos</strong> para personas físicas con declaración anual. Si tu tasa es del 30%, Hacienda puede devolverte hasta ese porcentaje de la prima. El cálculo exacto lo revisamos una vez que tenemos tu cotización.</div>
-  </div>
-
-  <!-- 6 COTIZADOR + SIMULADOR -->
-  <div class="section" style="border-bottom:none;">
-    <div class="eyebrow">Siguiente paso</div>
-    <h2 class="big-h" style="font-size:18px;">Obtén tu cotización<br>y simula tus números reales.</h2>
-
-    <!-- Paso A: cotizador -->
-    <div style="background:var(--blue50);border-radius:var(--r-lg);padding:16px 18px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
-      <div>
-        <div style="font-size:13px;font-weight:500;color:var(--blue800);margin-bottom:3px;">Paso 1 — Cotizar en Solucionline</div>
-        <div style="font-size:12px;color:var(--blue600);line-height:1.5;">Ingresa los datos del prospecto y obtén la prima, deducible y coaseguro exactos.</div>
-      </div>
-      <a href="https://www.solucionlinemonterrey.mx/CotizadorWebApp/Forms/Firma.aspx" target="_blank" style="background:var(--blue600);color:#fff;border-radius:var(--r-md);padding:10px 16px;font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap;display:inline-block;">Abrir cotizador →</a>
-    </div>
-
-    <!-- Paso B: simulador embebido -->
-    <div style="background:#f5f5f3;border-radius:var(--r-lg);padding:16px 18px;margin-bottom:14px;">
-      <div style="font-size:13px;font-weight:500;color:#1a1a18;margin-bottom:3px;">Paso 2 — Captura los datos y simula</div>
-      <div style="font-size:12px;color:#5f5e5a;margin-bottom:14px;line-height:1.5;">Ingresa los valores del PDF de cotización. Los escenarios y la tarjeta de WhatsApp se generan automáticamente.</div>
-
-      <!-- Datos del asegurado -->
-      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:#888780;margin-bottom:8px;">Datos del asegurado</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
-        <div style="grid-column:1/-1;display:flex;flex-direction:column;gap:4px;">
-          <label style="font-size:11px;color:#5f5e5a;">Nombre completo del titular</label>
-          <input type="text" id="s-nombre" placeholder="ej. Clara Isabel Gómez Barba" style="background:#fff;border:0.5px solid rgba(0,0,0,0.15);border-radius:8px;padding:8px 10px;font-size:14px;color:#1a1a18;font-family:inherit;width:100%;outline:none;">
-        </div>
-        <div style="grid-column:1/-1;display:flex;flex-direction:column;gap:4px;">
-          <label style="font-size:11px;color:#5f5e5a;">Edad titular</label>
-          <input type="number" id="s-edad" placeholder="ej. 43" style="background:#fff;border:0.5px solid rgba(0,0,0,0.15);border-radius:8px;padding:8px 10px;font-size:14px;color:#1a1a18;font-family:inherit;width:100%;outline:none;">
-        </div>
-      </div>
-
-      <!-- Datos de la cotización -->
-      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:#888780;margin-bottom:8px;">Datos de la cotización</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
-        <div style="display:flex;flex-direction:column;gap:4px;">
-          <label style="font-size:11px;color:#5f5e5a;">Prima anual total ($)</label>
-          <input type="number" id="s-prima" value="" placeholder="ej. 66496" style="background:#fff;border:0.5px solid rgba(0,0,0,0.15);border-radius:8px;padding:8px 10px;font-size:14px;color:#1a1a18;font-family:inherit;width:100%;outline:none;">
-        </div>
-        <div style="display:flex;flex-direction:column;gap:4px;">
-          <label style="font-size:11px;color:#5f5e5a;">Suma asegurada ($)</label>
-          <input type="number" id="s-suma" value="" placeholder="ej. 170000000" style="background:#fff;border:0.5px solid rgba(0,0,0,0.15);border-radius:8px;padding:8px 10px;font-size:14px;color:#1a1a18;font-family:inherit;width:100%;outline:none;">
-        </div>
-        <div style="display:flex;flex-direction:column;gap:4px;">
-          <label style="font-size:11px;color:#5f5e5a;">Deducible</label>
-          <select id="s-ded" style="background:#fff;border:0.5px solid rgba(0,0,0,0.15);border-radius:8px;padding:8px 10px;font-size:13px;color:#1a1a18;font-family:inherit;width:100%;outline:none;">
-            <option value="25000">$25,000</option><option value="29000">$29,000</option>
-            <option value="35000">$35,000</option><option value="41000" selected>$41,000</option>
-            <option value="47000">$47,000</option><option value="53000">$53,000</option>
-            <option value="59000">$59,000</option><option value="65000">$65,000</option>
-            <option value="77000">$77,000</option><option value="96000">$96,000</option>
-          </select>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:4px;">
-          <label style="font-size:11px;color:#5f5e5a;">Coaseguro</label>
-          <select id="s-cos" style="background:#fff;border:0.5px solid rgba(0,0,0,0.15);border-radius:8px;padding:8px 10px;font-size:13px;color:#1a1a18;font-family:inherit;width:100%;outline:none;">
-            <option value="0">10% · tope $97,000</option>
-            <option value="1">15% · tope $103,000</option>
-            <option value="2">20% · tope $109,000</option>
-            <option value="3">25% · tope $114,000</option>
-          </select>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:4px;">
-          <label style="font-size:11px;color:#5f5e5a;">Tasa ISR (%)</label>
-          <input type="number" id="s-tasa" placeholder="ej. 30" value="30" style="background:#fff;border:0.5px solid rgba(0,0,0,0.15);border-radius:8px;padding:8px 10px;font-size:14px;color:#1a1a18;font-family:inherit;width:100%;outline:none;">
-        </div>
-      </div>
-
-      <div style="margin-bottom:14px;">
-        <label style="font-size:11px;color:#5f5e5a;display:block;margin-bottom:6px;">Monto de la factura a simular</label>
-        <input type="range" id="s-slid" min="0" max="1500000" step="5000" value="400000" style="width:100%;accent-color:#185FA5;">
-        <div id="s-slid-out" style="font-size:20px;font-weight:500;color:#1a1a18;margin-top:5px;">$400,000</div>
-      </div>
-
-      <div id="s-cards" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:10px;"></div>
-
-      <div style="display:flex;gap:10px;margin-bottom:8px;flex-wrap:wrap;">
-        <div style="display:flex;align-items:center;gap:3px;font-size:11px;color:#888780;"><div style="width:8px;height:8px;border-radius:2px;background:#FAC775;"></div>Deducible</div>
-        <div style="display:flex;align-items:center;gap:3px;font-size:11px;color:#888780;"><div style="width:8px;height:8px;border-radius:2px;background:#F0997B;"></div>Coaseguro</div>
-        <div style="display:flex;align-items:center;gap:3px;font-size:11px;color:#888780;"><div style="width:8px;height:8px;border-radius:2px;background:#97C459;"></div>SMNYL</div>
-      </div>
-
-      <div id="s-insight" style="background:#fff;border-left:3px solid #185FA5;border-radius:0 8px 8px 0;padding:10px 12px;font-size:12px;color:#5f5e5a;line-height:1.65;"></div>
-
-    </div>
-
-    <!-- BENEFICIO FISCAL -->
-    <div style="margin-top:14px;background:#EEEDFE;border-radius:var(--r-lg);padding:16px 18px;">
-      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:#534AB7;margin-bottom:4px;">Beneficio adicional · Art. 151 LISR</div>
-      <div style="font-size:14px;font-weight:500;color:#26215C;margin-bottom:10px;line-height:1.4;">Hacienda te puede devolver parte de lo que pagas de prima.</div>
-      <div id="s-fiscal-wrap">
-        <div style="font-size:12px;color:#534AB7;line-height:1.6;margin-bottom:10px;">Captura la prima anual arriba para ver el importe estimado de devolución.</div>
-      </div>
-      <div style="font-size:11px;color:#7F77DD;line-height:1.55;border-top:0.5px solid #CECBF6;padding-top:10px;margin-top:4px;">La prima del GMM es deducible de impuestos para personas físicas con declaración anual (Art. 151 LISR). Dependiendo de tu tasa impositiva, Hacienda puede devolverte entre el 20% y el 30% de lo pagado — reduciendo el costo real de tu protección. El cálculo exacto se determina en tu declaración anual.</div>
-    </div>
-
-    <!-- BOTÓN GENERAR TARJETA -->
-    <button onclick="abrirTarjeta()" style="width:100%;background:#185FA5;color:#fff;border:none;border-radius:var(--r-lg);padding:14px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;margin-top:12px;">
-      Generar tarjeta para WhatsApp →
-    </button>
-    <div style="font-size:11px;color:#888780;text-align:center;margin-top:8px;line-height:1.5;">Se abre la tarjeta con los datos ya capturados.</div>
-
+  <div style="margin-top:1.25rem;background:var(--blue50);border-radius:var(--r-md);padding:12px 14px;font-size:13px;color:var(--blue600);line-height:1.6;text-align:center;">
+    Todo esto depende de una sola cosa: <strong style="color:var(--blue800);">estar bien de salud.</strong>
   </div>
 </div>
 
-  <div class="footnote">Fuentes: AMIS 2025 · MetLife México · Referencia de mercado hospitales privados 2024–2025 · Art. 151 LISR. Los costos son referencias orientativas y varían según hospital, diagnóstico y evolución. La deducibilidad aplica según situación particular de cada contribuyente. Este material es informativo y no forma parte del contrato de seguro. · EMA Seguros y Estrategias Patrimoniales · Martín Márquez Guzmán</div>
+<!-- S2: PÚBLICO VS PRIVADO + COSTOS -->
+<div class="slide" id="s1">
+  <div class="ey">El sistema de salud en México</div>
+  <h2 class="h2">Tenemos atención disponible.<br>La pregunta es: <em>¿a qué costo y en cuánto tiempo?</em></h2>
+  <div class="sys-grid">
+    <div class="sys-card sc-pub">
+      <div class="sys-tag">Sistema público</div>
+      <div class="sys-name">IMSS · ISSSTE · Salud</div>
+      <ul class="sys-li">
+        <li>✅ Accesible y gratuito</li>
+        <li>⚠️ Tiempos de espera prolongados</li>
+        <li>⚠️ Infraestructura y medicamentos limitados</li>
+        <li>⚠️ Diagnóstico oportuno no garantizado</li>
+      </ul>
+    </div>
+    <div class="sys-card sc-priv">
+      <div class="sys-tag">Sistema privado</div>
+      <div class="sys-name">H. Ángeles · Médica Sur · ABC</div>
+      <ul class="sys-li">
+        <li>✅ Atención inmediata, sin esperas</li>
+        <li>✅ Diagnóstico oportuno · intervención rápida</li>
+        <li>✅ Tecnología e infraestructura de primer nivel</li>
+        <li>⚡ Costo real: de $100,000 a más de $2,000,000</li>
+      </ul>
+    </div>
+  </div>
+  <div class="bridge">La atención privada oportuna puede ser <strong>la diferencia entre recuperarse pronto o no recuperarse del todo.</strong> El problema no es la calidad — es que nadie tiene ese dinero disponible.</div>
+  <div style="margin-top:1.25rem;">
+    <div style="font-size:13px;font-weight:500;color:var(--txt);margin-bottom:10px;">Lo más costoso según tu etapa de vida · Hospital privado de primer nivel</div>
+    <table class="cost-table">
+      <thead><tr><th>Edad</th><th>Padecimiento</th><th>Costo estimado</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="age-pill ap30">30–39</span></td>
+          <td style="color:var(--txt2);">Apendicitis con complicaciones</td>
+          <td><span class="cost-hi">$80,000–$200,000</span></td>
+        </tr>
+        <tr>
+          <td><span class="age-pill ap40">40–49</span></td>
+          <td style="color:var(--txt2);">Cáncer de mama · cirugía + quimio + radio</td>
+          <td><span class="cost-hi">$350,000–$1,500,000</span></td>
+        </tr>
+        <tr>
+          <td><span class="age-pill ap50">50+</span></td>
+          <td style="color:var(--txt2);">Infarto al miocardio · bypass coronario</td>
+          <td><span class="cost-hi">$800,000–$2,500,000</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="alert-box">⚠️ <strong>Ninguno de estos montos está disponible en ahorros para la mayoría de las familias mexicanas.</strong> Y si estuviera, usarlo significaría perder años de esfuerzo acumulado.</div>
+  </div>
+</div>
+
+<!-- S3: MATERNIDAD -->
+<div class="slide" id="s2">
+  <div class="ey">Beneficio especial · Parejas jóvenes</div>
+  <h2 class="h2">¿Esperas un bebé o planeas tenerlo?<br><em>La póliza puede pagarse sola.</em></h2>
+  <p class="body">El seguro de Gastos Médicos Mayores incluye un apoyo económico por parto o cesárea. Para una pareja joven esto cambia completamente el análisis de costo-beneficio.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+    <div style="background:var(--green50);border:0.5px solid #C0DD97;border-radius:var(--r-lg);padding:16px 14px;text-align:center;">
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--green600);margin-bottom:6px;">Apoyo por parto o cesárea</div>
+      <div style="font-size:30px;font-weight:500;color:var(--green800);margin-bottom:4px;">$51,000</div>
+      <div style="font-size:11px;color:var(--green600);line-height:1.4;">indemnización fija · años 1, 2 y 3 de vigencia</div>
+    </div>
+    <div style="background:var(--blue50);border:0.5px solid #B5D4F4;border-radius:var(--r-lg);padding:16px 14px;text-align:center;">
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--blue600);margin-bottom:6px;">Prima estimada · perfil joven</div>
+      <div style="font-size:30px;font-weight:500;color:var(--blue800);margin-bottom:4px;">~$30,000</div>
+      <div style="font-size:11px;color:var(--blue600);line-height:1.4;">prima aproximada · 25–32 años · Seguro GMM</div>
+    </div>
+  </div>
+
+  <div style="background:var(--amber50);border:0.5px solid #FAC775;border-radius:var(--r-lg);padding:14px 16px;margin-bottom:12px;">
+    <div style="font-size:12px;font-weight:500;color:var(--amber800);margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em;">El balance del primer año</div>
+    <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;"><span style="color:var(--txt2);">Prima anual pagada</span><span style="font-weight:500;color:var(--amber800);">~$30,000</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;"><span style="color:var(--txt2);">Apoyo por parto/cesárea</span><span style="font-weight:500;color:var(--green600);">+$51,000</span></div>
+    <div style="height:0.5px;background:var(--border);margin:6px 0;"></div>
+    <div style="display:flex;justify-content:space-between;font-size:14px;"><span style="font-weight:500;color:var(--txt);">Balance neto</span><span style="font-weight:500;color:var(--green600);">+$21,000 a favor</span></div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
+    <div style="background:var(--bg2);border-radius:var(--r-md);padding:11px 14px;display:flex;gap:10px;align-items:flex-start;">
+      <span style="font-size:18px;flex-shrink:0;">✅</span>
+      <div style="font-size:13px;color:var(--txt2);line-height:1.5;"><strong style="color:var(--txt);">Si el bebé nace sano</strong> — el apoyo de $51,000 más que cubre la prima. La póliza se pagó sola y quedaron cubiertos todo el año.</div>
+    </div>
+    <div style="background:var(--bg2);border-radius:var(--r-md);padding:11px 14px;display:flex;gap:10px;align-items:flex-start;">
+      <span style="font-size:18px;flex-shrink:0;">🛡️</span>
+      <div style="font-size:13px;color:var(--txt2);line-height:1.5;"><strong style="color:var(--txt);">Si hay complicaciones</strong> — madre o recién nacido quedan cubiertos con los $170,000,000 de suma asegurada.</div>
+    </div>
+    <div style="background:var(--bg2);border-radius:var(--r-md);padding:11px 14px;display:flex;gap:10px;align-items:flex-start;">
+      <span style="font-size:18px;flex-shrink:0;">❤️</span>
+      <div style="font-size:13px;color:var(--txt2);line-height:1.5;"><strong style="color:var(--txt);">Si el bebé nace con algún padecimiento</strong> — queda asegurado desde el primer día bajo la póliza de los padres.</div>
+    </div>
+  </div>
+  <div class="bridge">Para una pareja joven, contratar el GMM antes del embarazo es una de las decisiones financieras más inteligentes — <strong>protección completa y la póliza prácticamente financiada por el propio beneficio.</strong></div>
+</div>
+
+<!-- S4: CÓMO FUNCIONA -->
+<div class="slide" id="s3">
+  <div class="ey">El instrumento</div>
+  <h2 class="h2">¿Qué es un GMM y cómo<br><em>te protege sin descapitalizarte?</em></h2>
+  <p class="body">Un Seguro de Gastos Médicos Mayores es un instrumento financiero — no un gasto. Funciona así:</p>
+  <div class="gmm-flow">
+    <div class="gmm-step">
+      <div class="gmm-line"><div class="gmm-num">1</div><div class="gmm-conn"></div></div>
+      <div class="gmm-content"><div class="gmm-t">Tú aportas una prima anual fija y conocida</div><div class="gmm-d">Un monto programado al año — predecible, planificable. Sin sorpresas. Lo pagas como cualquier servicio recurrente.</div></div>
+    </div>
+    <div class="gmm-step">
+      <div class="gmm-line"><div class="gmm-num">2</div><div class="gmm-conn"></div></div>
+      <div class="gmm-content"><div class="gmm-t">SMNYL pone a tu disposición $170,000,000</div><div class="gmm-d">Desde el primer día de vigencia. No necesitas tenerlo ahorrado — el riesgo se transfiere a la aseguradora.</div></div>
+    </div>
+    <div class="gmm-step">
+      <div class="gmm-line"><div class="gmm-num">3</div><div class="gmm-conn"></div></div>
+      <div class="gmm-content"><div class="gmm-t">Ocurre un evento — SMNYL paga directo al hospital</div><div class="gmm-d">Sin anticipar dinero. Sin reembolsos. Tú solo cubres una parte: el deducible y el coaseguro.</div></div>
+    </div>
+    <div class="gmm-step">
+      <div class="gmm-line"><div class="gmm-num">4</div></div>
+      <div class="gmm-content" style="padding-bottom:0;"><div class="gmm-t">Tu aportación baja conforme sube la factura</div><div class="gmm-d">En eventos pequeños participas más en proporción. En eventos grandes, SMNYL absorbe casi todo.</div></div>
+    </div>
+  </div>
+  <div class="pct-grid">
+    <div class="pct-card pc-you"><div class="pct-n">~10%</div><div class="pct-l">pagas tú</div><div class="pct-s">deducible + coaseguro topado</div></div>
+    <div class="pct-card pc-mnyl"><div class="pct-n">~90%</div><div class="pct-l">paga SMNYL</div><div class="pct-s">directo al hospital · sin trámites</div></div>
+  </div>
+  <div style="margin-top:1.25rem;">
+    <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--txt3);margin-bottom:8px;">Tu aportación según el monto del evento</div>
+    <div class="scale-row"><div class="scale-lbl">Hasta $150k</div><div class="scale-bar"><div class="b-ded" style="width:22%"></div><div class="b-mnyl" style="width:78%"></div></div><div class="scale-pct">tú ~22% · SMNYL ~78%</div></div>
+    <div class="scale-row"><div class="scale-lbl">$150k–$500k</div><div class="scale-bar"><div class="b-ded" style="width:14%"></div><div class="b-cos" style="width:4%"></div><div class="b-mnyl" style="width:82%"></div></div><div class="scale-pct">tú ~14% · SMNYL ~86%</div></div>
+    <div class="scale-row"><div class="scale-lbl">$500k–$1M</div><div class="scale-bar"><div class="b-ded" style="width:7%"></div><div class="b-cos" style="width:4%"></div><div class="b-mnyl" style="width:89%"></div></div><div class="scale-pct">tú ~11% · SMNYL ~89%</div></div>
+    <div class="scale-row"><div class="scale-lbl">Más de $1M</div><div class="scale-bar"><div class="b-ded" style="width:4%"></div><div class="b-cos" style="width:3%"></div><div class="b-mnyl" style="width:93%"></div></div><div class="scale-pct">tú ~7% · SMNYL ~93%</div></div>
+    <div class="leg" style="margin-top:8px;">
+      <div class="leg-i"><div class="leg-d" style="background:#FAC775;"></div>Deducible</div>
+      <div class="leg-i"><div class="leg-d" style="background:#F0997B;"></div>Coaseguro</div>
+      <div class="leg-i"><div class="leg-d" style="background:#97C459;"></div>Cubre SMNYL</div>
+    </div>
+    <div class="scale-note">El deducible es fijo. El coaseguro crece con la factura pero tiene un <strong>tope máximo</strong> — una vez alcanzado, SMNYL cubre el 100% del resto.</div>
+  </div>
+</div>
+
+<!-- S5: SIMULADOR -->
+<div class="slide" id="s4">
+  <div class="ey">Tu caso específico</div>
+  <h2 class="h2">Captura los datos de tu cotización<br>y simula cualquier factura.</h2>
+  <div class="sim-fields">
+    <div class="fg"><label>Nombre del titular</label><input type="text" id="s-nombre" placeholder="ej. Clara Gómez"></div>
+    <div class="fg"><label>Prima anual ($)</label><input type="number" id="s-prima" placeholder="ej. 66496"></div>
+    <div class="fg">
+      <label>Deducible</label>
+      <select id="s-ded">
+        <option value="25000">$25,000</option><option value="29000">$29,000</option>
+        <option value="35000">$35,000</option><option value="41000" selected>$41,000</option>
+        <option value="47000">$47,000</option><option value="53000">$53,000</option>
+        <option value="59000">$59,000</option><option value="65000">$65,000</option>
+        <option value="77000">$77,000</option><option value="96000">$96,000</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Coaseguro</label>
+      <select id="s-cos">
+        <option value="0">10% · tope $97,000</option>
+        <option value="1">15% · tope $103,000</option>
+        <option value="2">20% · tope $109,000</option>
+        <option value="3">25% · tope $114,000</option>
+      </select>
+    </div>
+  </div>
+  <div style="margin-bottom:1.25rem;">
+    <label style="font-size:13px;color:var(--txt2);display:block;margin-bottom:5px;">Monto de la factura médica a simular</label>
+    <input type="range" id="slid" min="0" max="2000000" step="5000" value="400000">
+    <div class="slider-val" id="slid-out">$400,000</div>
+  </div>
+  <div class="scards" id="scards"></div>
+  <div class="leg">
+    <div class="leg-i"><div class="leg-d" style="background:#FAC775;"></div>Deducible</div>
+    <div class="leg-i"><div class="leg-d" style="background:#F0997B;"></div>Coaseguro</div>
+    <div class="leg-i"><div class="leg-d" style="background:#97C459;"></div>SMNYL</div>
+  </div>
+  <div class="insight" id="insight">Captura los datos arriba y mueve el slider para ver tu caso.</div>
+</div>
+
+<!-- S6: HACIENDA -->
+<div class="slide" id="s5">
+  <div class="ey">Y hay más · Art. 151 LISR</div>
+  <h2 class="h2">Hacienda te devuelve<br><em>hasta el 30% de tu prima.</em></h2>
+  <p class="body">Además de toda la protección que ya viste, la prima del GMM es deducible de impuestos. Parte de lo que pagas, Hacienda te lo regresa en tu declaración anual.</p>
+  <div class="fiscal-box">
+    <div class="fiscal-ey">Beneficio fiscal estimado · Art. 151 LISR</div>
+    <div class="fiscal-h" id="f-title">Captura la prima en el simulador para ver tu devolución.</div>
+    <div class="fiscal-grid" id="f-grid" style="display:none;">
+      <div class="fr"><div class="fr-v" id="f-prima">—</div><div class="fr-l">prima anual</div></div>
+      <div class="fr"><div class="fr-v" id="f-dev20">—</div><div class="fr-l">te devuelve Hacienda al 20%</div></div>
+      <div class="fr"><div class="fr-v" id="f-dev30">—</div><div class="fr-l">te devuelve Hacienda al 30%</div></div>
+    </div>
+    <div class="fiscal-nota" id="f-nota">La prima es deducible para personas físicas con declaración anual. Tu devolución exacta depende de tu tasa impositiva — lo revisamos con tu contador.</div>
+  </div>
+  <div style="background:var(--bg2);border-radius:var(--r-md);padding:12px 14px;font-size:13px;color:var(--txt2);line-height:1.6;" id="f-context">
+    Piénsalo así: estás pagando tu protección médica y además reduciendo tu carga fiscal. El costo real de tu póliza es significativamente menor de lo que aparece en la cotización.
+  </div>
+</div>
+
+<!-- S7: HOSPITALES + COTIZADOR -->
+<div class="slide" id="s6">
+  <div class="ey">Elige tu plan</div>
+  <h2 class="h2">Primero revisa dónde te atiendes,<br>luego cotizamos con tus datos exactos.</h2>
+  <div class="hosp-box">
+    <div>
+      <div class="hosp-t">¿Tu hospital está en la red?</div>
+      <div class="hosp-s">Revisa el directorio y elige el plan que incluya donde prefieres atenderte o a tu médico de confianza.</div>
+    </div>
+    <a class="btn-link" href="https://www.mnyl.com.mx/" target="_blank">Ver hospitales →</a>
+  </div>
+  <div class="cot-box">
+    <div class="cot-title">Cotizador oficial Solucionline · SMNYL</div>
+    <div class="cot-sub">Con los datos del prospecto obtienes la prima exacta, el PDF oficial y todas las coberturas seleccionadas.</div>
+    <a class="btn-link blue" href="https://www.solucionlinemonterrey.mx/CotizadorWebApp/Forms/Firma.aspx" target="_blank">Abrir cotizador →</a>
+    <div class="cot-steps">
+      <div class="cot-step"><div class="cot-step-n">1</div><div class="cot-step-l">Ingresa datos del asegurado</div></div>
+      <div class="cot-step"><div class="cot-step-n">2</div><div class="cot-step-l">Selecciona plan y coberturas</div></div>
+      <div class="cot-step"><div class="cot-step-n">3</div><div class="cot-step-l">Descarga el PDF oficial</div></div>
+    </div>
+  </div>
+  <div style="background:var(--bg2);border-radius:var(--r-md);padding:12px 14px;font-size:13px;color:var(--txt2);line-height:1.6;">
+    💡 Una vez que tengas el PDF, regresa al slide 5 para capturar la prima y el deducible reales en el simulador.
+  </div>
+</div>
+
+<!-- S8: EMAIL -->
+<div class="slide" id="s7">
+  <div class="ey">Cierre de sesión</div>
+  <h2 class="h2">Envía el resumen al cliente<br>como constancia por escrito.</h2>
+  <div style="background:var(--bg2);border-radius:var(--r-lg);padding:14px 16px;margin-bottom:14px;">
+    <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.04em;color:var(--txt3);margin-bottom:10px;">Resumen de lo revisado en sesión</div>
+    <div class="resumen-grid" id="resumen-grid"></div>
+  </div>
+  <div class="email-box">
+    <div class="email-t">Enviar resumen al cliente</div>
+    <input class="email-input" type="email" id="email-cliente" placeholder="correo@cliente.com">
+    <button class="btn-gmail" onclick="abrirGmail()">✉️ Abrir Gmail con resumen</button>
+    <div class="email-hint">⚠️ Cuando Gmail abra, arrastra el PDF de SMNYL al área de adjuntos antes de enviar.</div>
+  </div>
+</div>
+
+</div><!-- /slides -->
+
+<div class="nav">
+  <button class="btn sec" id="btn-prev" onclick="navPrev()">← Anterior</button>
+  <span class="counter" id="counter">1 / 8</span>
+  <button class="btn" id="btn-next" onclick="navNext()">Siguiente →</button>
+</div>
+</div><!-- /shell -->
 
 <script>
-var BASE_URL = 'https://martinmarquez2026.github.io/gmm-smnyl/tarjeta_whatsapp.html';
-
-function abrirTarjeta(){
-  var nombre = document.getElementById('s-nombre').value||'';
-  var edad   = document.getElementById('s-edad').value||'';
-  var prima  = document.getElementById('s-prima').value||'';
-  var suma   = document.getElementById('s-suma').value||'';
-  var ded    = document.getElementById('s-ded').value||'';
-  var cosEl  = document.getElementById('s-cos');
-  var cos    = cosEl.options[cosEl.selectedIndex].text||'';
-  var tasa   = document.getElementById('s-tasa').value||'30';
-  var q = 'nombre='+encodeURIComponent(nombre)
-        +'&edad='+encodeURIComponent(edad)
-        +'&prima='+encodeURIComponent(prima)
-        +'&suma='+encodeURIComponent(suma)
-        +'&ded='+encodeURIComponent(ded)
-        +'&cos='+encodeURIComponent(cos)
-        +'&tasa='+encodeURIComponent(tasa);
-  window.open(BASE_URL+'?'+q, '_blank');
-}
-
-var COS_DATA = [
+var COS_DATA=[
   {pct:0.10,tope:97000,lbl:'10% · $97k'},
   {pct:0.15,tope:103000,lbl:'15% · $103k'},
   {pct:0.20,tope:109000,lbl:'20% · $109k'},
   {pct:0.25,tope:114000,lbl:'25% · $114k'}
 ];
-var simSel = 1;
+var TOTAL=8,cur=0,simSel=1;
+function fmt(n){return '$'+Math.round(n).toLocaleString('es-MX');}
+function pct(n,t){return t===0?'—':Math.round(n/t*100)+'%';}
 
-function sfmt(n){ return '$'+Math.round(n).toLocaleString('es-MX'); }
-function spct(n,t){ return t===0?'—':Math.round(n/t*100)+'%'; }
-
-function scalc(f,ded,cosPct,cosTope){
-  if(f<=0) return {dU:0,cU:0,bols:0,mnyl:0};
-  var dU=Math.min(f,ded), cU=Math.min((f-dU)*cosPct,cosTope), bols=dU+cU;
-  return {dU:dU,cU:cU,bols:bols,mnyl:f-bols};
+function goTo(i){
+  document.getElementById('s'+cur).classList.remove('active');
+  cur=i;
+  document.getElementById('s'+cur).classList.add('active');
+  document.getElementById('counter').textContent=(cur+1)+' / '+TOTAL;
+  document.getElementById('btn-prev').style.visibility=cur===0?'hidden':'visible';
+  document.getElementById('btn-next').textContent=cur===TOTAL-1?'Finalizar':'Siguiente →';
+  updateDots();
+  if(cur===5)updateFiscal();
+  if(cur===7)updateResumen();
+  window.scrollTo(0,0);
 }
+function navNext(){if(cur<TOTAL-1)goTo(cur+1);}
+function navPrev(){if(cur>0)goTo(cur-1);}
 
-function buildScen(){
-  var baseDed=parseInt(document.getElementById('s-ded').value)||41000;
-  var cosI=parseInt(document.getElementById('s-cos').value)||0;
-  var lDed=baseDed>25000?Math.max(25000,baseDed-16000):25000;
-  var hDed=Math.min(baseDed+12000,96000);
-  var hCosI=Math.min(cosI+1,COS_DATA.length-1);
-  return [
-    {ded:lDed, cos:COS_DATA[cosI],  tag:'Deducible bajo', col:'#A32D2D', badge:'Prima alta'},
-    {ded:baseDed, cos:COS_DATA[cosI], tag:'Tu cotización', col:'#185FA5', badge:'Tu póliza'},
-    {ded:hDed, cos:COS_DATA[hCosI], tag:'Deducible alto', col:'#3B6D11', badge:'Prima baja'}
-  ];
-}
-
-function srender(){
-  var f=parseInt(document.getElementById('s-slid').value);
-  document.getElementById('s-slid-out').textContent=sfmt(f);
-  var scen=buildScen();
-  var results=scen.map(function(s){ return scalc(f,s.ded,s.cos.pct,s.cos.tope); });
-  var ctn=document.getElementById('s-cards');
-  ctn.innerHTML='';
-  scen.forEach(function(s,i){
-    var r=results[i];
-    var pD=f>0?r.dU/f*100:0, pC=f>0?r.cU/f*100:0, pM=f>0?r.mnyl/f*100:0;
+function updateDots(){
+  var c=document.getElementById('dots');c.innerHTML='';
+  for(var i=0;i<TOTAL;i++){
     var d=document.createElement('div');
-    var isSel=(i===simSel);
-    d.style.cssText='border-radius:10px;padding:12px 10px;cursor:pointer;border:'+(isSel?'2px solid #185FA5;background:#E6F1FB':'0.5px solid rgba(0,0,0,0.12);background:#fff')+';';
-    d.innerHTML=
-      '<div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.04em;color:'+s.col+';margin-bottom:4px;">'+s.tag+'</div>'+
-      '<div style="font-size:11px;color:#5f5e5a;margin-bottom:8px;">'+sfmt(s.ded)+' · '+s.cos.lbl+'</div>'+
-      '<div style="height:7px;border-radius:3px;overflow:hidden;display:flex;background:#f0f0ee;margin-bottom:7px;">'+
-        '<div style="width:'+pD.toFixed(1)+'%;background:#FAC775;"></div>'+
-        '<div style="width:'+pC.toFixed(1)+'%;background:#F0997B;"></div>'+
-        '<div style="width:'+Math.max(0,pM).toFixed(1)+'%;background:#97C459;"></div>'+
-      '</div>'+
-      '<div style="font-size:11px;color:#854F0B;margin-bottom:2px;">Tú: <strong>'+sfmt(r.bols)+'</strong> ('+spct(r.bols,f)+')</div>'+
-      '<div style="font-size:11px;color:#3B6D11;">SMNYL: <strong>'+sfmt(r.mnyl)+'</strong> ('+spct(r.mnyl,f)+')</div>'+
-      '<div style="margin-top:6px;display:inline-block;font-size:10px;padding:2px 6px;border-radius:4px;background:'+(i===0?'#FCEBEB':i===1?'#E6F1FB':'#EAF3DE')+';color:'+(i===0?'#A32D2D':i===1?'#185FA5':'#3B6D11')+';">'+s.badge+'</div>';
-    d.addEventListener('click',function(){simSel=i;srender();});
-    ctn.appendChild(d);
-  });
-  var r1=results[1];
-  var ins=document.getElementById('s-insight');
-  if(f===0){ins.innerHTML='Mueve el slider para ver el análisis.';return;}
-  ins.innerHTML='Con <strong>'+sfmt(f)+'</strong> de factura y la cotización base: pagas <strong>'+sfmt(r1.bols)+'</strong> ('+spct(r1.bols,f)+'), SMNYL cubre <strong>'+sfmt(r1.mnyl)+'</strong> directo al hospital. '+(f<150000?'El deducible representa la mayor parte de tu aportación.':f<500000?'El coaseguro ya suma peso, pero el tope lo protege.':'El tope del coaseguro ya se alcanzó — SMNYL absorbe prácticamente todo el resto.');
-
-  var prima=parseFloat(document.getElementById('s-prima').value)||0;
-  var wrap=document.getElementById('s-fiscal-wrap');
-  if(prima>0){
-    var dev20=prima*0.20, dev30=prima*0.30;
-    wrap.innerHTML=
-      '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:6px;">'+
-        '<div style="background:#fff;border-radius:8px;padding:10px;text-align:center;">'+
-          '<div style="font-size:18px;font-weight:500;color:#3C3489;">'+sfmt(prima)+'</div>'+
-          '<div style="font-size:10px;color:#7F77DD;margin-top:2px;">prima anual</div>'+
-        '</div>'+
-        '<div style="background:#fff;border-radius:8px;padding:10px;text-align:center;">'+
-          '<div style="font-size:18px;font-weight:500;color:#3C3489;">'+sfmt(dev20)+'</div>'+
-          '<div style="font-size:10px;color:#7F77DD;margin-top:2px;">te devuelve Hacienda al 20%</div>'+
-        '</div>'+
-        '<div style="background:#fff;border-radius:8px;padding:10px;text-align:center;">'+
-          '<div style="font-size:18px;font-weight:500;color:#3C3489;">'+sfmt(dev30)+'</div>'+
-          '<div style="font-size:10px;color:#7F77DD;margin-top:2px;">te devuelve Hacienda al 30%</div>'+
-        '</div>'+
-      '</div>'+
-      '<div style="font-size:12px;color:#534AB7;line-height:1.55;">Tu costo real de protección queda entre <strong>'+sfmt(prima-dev30)+'</strong> y <strong>'+sfmt(prima-dev20)+'</strong> después de la devolución.</div>';
-  } else {
-    wrap.innerHTML='<div style="font-size:12px;color:#534AB7;line-height:1.6;">Captura la prima anual arriba para ver el importe estimado de devolución.</div>';
+    d.className='dot'+(i===cur?' active':i<cur?' done':'');
+    (function(idx){d.onclick=function(){goTo(idx);};})(i);
+    c.appendChild(d);
   }
 }
 
-document.getElementById('s-slid').addEventListener('input',srender);
+function calcRaw(f,ded,cosPct,cosTope){
+  if(f<=0)return{dU:0,cU:0,bols:0,mnyl:0};
+  var dU=Math.min(f,ded),cU=Math.min((f-dU)*cosPct,cosTope),bols=dU+cU;
+  return{dU:dU,cU:cU,bols:bols,mnyl:f-bols};
+}
+function buildScen(){
+  var bd=parseInt(document.getElementById('s-ded').value)||41000;
+  var ci=parseInt(document.getElementById('s-cos').value)||0;
+  var lD=Math.max(25000,bd-16000),hD=Math.min(bd+12000,96000);
+  var hCi=Math.min(ci+1,COS_DATA.length-1);
+  return[
+    {ded:lD,cos:COS_DATA[ci],tag:'Deducible bajo',col:'#A32D2D',badge:'b-hi',bl:'Prima alta'},
+    {ded:bd,cos:COS_DATA[ci],tag:'Tu cotización',col:'#185FA5',badge:'b-mid',bl:'Tu póliza'},
+    {ded:hD,cos:COS_DATA[hCi],tag:'Deducible alto',col:'#3B6D11',badge:'b-lo',bl:'Prima baja'}
+  ];
+}
+function srender(){
+  var f=parseInt(document.getElementById('slid').value);
+  document.getElementById('slid-out').textContent=fmt(f);
+  var scen=buildScen();
+  var res=scen.map(function(s){return calcRaw(f,s.ded,s.cos.pct,s.cos.tope);});
+  var ctn=document.getElementById('scards');ctn.innerHTML='';
+  scen.forEach(function(s,i){
+    var r=res[i];
+    var pD=f>0?r.dU/f*100:0,pC=f>0?r.cU/f*100:0,pM=f>0?r.mnyl/f*100:0;
+    var d=document.createElement('div');
+    d.className='scard'+(i===simSel?' sel':'');
+    d.innerHTML=
+      '<div class="scard-tag" style="color:'+s.col+'">'+s.tag+'</div>'+
+      '<div class="scard-ded">'+fmt(s.ded)+'</div>'+
+      '<div class="scard-cos">'+s.cos.lbl+'</div>'+
+      '<div class="sbar"><div class="b-ded" style="width:'+pD.toFixed(1)+'%"></div><div class="b-cos" style="width:'+pC.toFixed(1)+'%"></div><div class="b-mnyl" style="width:'+Math.max(0,pM).toFixed(1)+'%"></div></div>'+
+      '<div class="srow"><span class="sl">Tú</span><span class="sv amb">'+fmt(r.bols)+' ('+pct(r.bols,f)+')</span></div>'+
+      '<div class="srow"><span class="sl">SMNYL</span><span class="sv grn">'+fmt(r.mnyl)+' ('+pct(r.mnyl,f)+')</span></div>'+
+      '<span class="sbadge '+s.badge+'">'+s.bl+'</span>';
+    d.addEventListener('click',function(){simSel=i;srender();});
+    ctn.appendChild(d);
+  });
+  var r1=res[1];
+  var ins=document.getElementById('insight');
+  if(f===0){ins.innerHTML='Mueve el slider para ver el análisis.';return;}
+  ins.innerHTML='Con <strong>'+fmt(f)+'</strong> de factura: pagas <strong>'+fmt(r1.bols)+'</strong> ('+pct(r1.bols,f)+'), SMNYL cubre <strong>'+fmt(r1.mnyl)+'</strong> directo al hospital.'+(f>=500000?' El tope del coaseguro ya actúa — SMNYL absorbe prácticamente todo el resto.':'');
+}
+document.getElementById('slid').addEventListener('input',srender);
 document.getElementById('s-ded').addEventListener('change',srender);
 document.getElementById('s-cos').addEventListener('change',srender);
-document.getElementById('s-prima').addEventListener('input',srender);
 srender();
-</script>
 
-</div>
+function updateFiscal(){
+  var prima=parseFloat(document.getElementById('s-prima').value)||0;
+  var grid=document.getElementById('f-grid');
+  var title=document.getElementById('f-title');
+  var nota=document.getElementById('f-nota');
+  var ctx=document.getElementById('f-context');
+  if(prima>0){
+    grid.style.display='grid';
+    document.getElementById('f-prima').textContent=fmt(prima);
+    document.getElementById('f-dev20').textContent=fmt(prima*0.20);
+    document.getElementById('f-dev30').textContent=fmt(prima*0.30);
+    title.textContent='Con una prima de '+fmt(prima)+', Hacienda puede devolverte:';
+    nota.innerHTML='Tu costo real de protección queda entre <strong>'+fmt(prima*0.70)+'</strong> y <strong>'+fmt(prima*0.80)+'</strong> después de la devolución.';
+    ctx.innerHTML='Una póliza de <strong>'+fmt(prima)+'</strong> te cuesta efectivamente entre <strong>'+fmt(prima*0.70)+'</strong> y <strong>'+fmt(prima*0.80)+'</strong> al año — menos de <strong>'+fmt(prima*0.80/12)+'</strong> al mes después de Hacienda.';
+  } else {
+    grid.style.display='none';
+    title.textContent='Captura la prima en el simulador (slide 5) para ver tu devolución estimada.';
+  }
+}
+
+function updateResumen(){
+  var nombre=document.getElementById('s-nombre').value||'—';
+  var prima=parseFloat(document.getElementById('s-prima').value)||0;
+  var ded=parseInt(document.getElementById('s-ded').value)||41000;
+  var cosEl=document.getElementById('s-cos');
+  var cos=cosEl.options[cosEl.selectedIndex].text;
+  var f=parseInt(document.getElementById('slid').value);
+  var scen=buildScen();
+  var r1=calcRaw(f,scen[1].ded,scen[1].cos.pct,scen[1].cos.tope);
+  var items=[
+    ['Titular',nombre],
+    ['Prima anual',prima>0?fmt(prima):'—'],
+    ['Deducible',fmt(ded)],
+    ['Coaseguro',cos],
+    ['Factura simulada',fmt(f)],
+    ['Tu aportación',fmt(r1.bols)+' ('+pct(r1.bols,f)+')'],
+    ['Cubre SMNYL',fmt(r1.mnyl)+' ('+pct(r1.mnyl,f)+')'],
+    ['Dev. Hacienda est.',prima>0?fmt(prima*0.30)+' al 30%':'—']
+  ];
+  document.getElementById('resumen-grid').innerHTML=items.map(function(it){
+    return '<div class="rchip"><div class="rchip-l">'+it[0]+'</div><div class="rchip-v">'+it[1]+'</div></div>';
+  }).join('');
+}
+
+function abrirGmail(){
+  var email=document.getElementById('email-cliente').value.trim();
+  if(!email){alert('Captura el correo del cliente.');return;}
+  var nombre=document.getElementById('s-nombre').value||'Cliente';
+  var prima=parseFloat(document.getElementById('s-prima').value)||0;
+  var ded=parseInt(document.getElementById('s-ded').value)||41000;
+  var cosEl=document.getElementById('s-cos');
+  var cos=cosEl.options[cosEl.selectedIndex].text;
+  var f=parseInt(document.getElementById('slid').value);
+  var scen=buildScen();
+  var r1=calcRaw(f,scen[1].ded,scen[1].cos.pct,scen[1].cos.tope);
+  var asunto='Resumen GMM Alfa Medical · '+nombre+' · EMA Seguros';
+  var cuerpo=
+    'Hola '+nombre+',\n\n'+
+    'Gracias por tu tiempo hoy. Aquí el resumen de lo que revisamos en nuestra sesión:\n\n'+
+    '── DATOS DE TU COTIZACIÓN ──\n'+
+    '• Prima anual: '+(prima>0?fmt(prima):'pendiente de cotizar')+'\n'+
+    '• Deducible: '+fmt(ded)+'\n'+
+    '• Coaseguro: '+cos+'\n'+
+    '• Suma asegurada: $170,000,000\n\n'+
+    '── EJERCICIO DE COBERTURA ──\n'+
+    'Ante una factura de '+fmt(f)+':\n'+
+    '• Tu aportación: '+fmt(r1.bols)+' ('+pct(r1.bols,f)+')\n'+
+    '• SMNYL cubre: '+fmt(r1.mnyl)+' ('+pct(r1.mnyl,f)+') directo al hospital\n\n'+
+    '── BENEFICIO FISCAL · ART. 151 LISR ──\n'+
+    (prima>0?
+      '• Devolución estimada al 30% ISR: '+fmt(prima*0.30)+'\n'+
+      '• Devolución estimada al 20% ISR: '+fmt(prima*0.20)+'\n'+
+      '• Costo real neto de tu póliza: entre '+fmt(prima*0.70)+' y '+fmt(prima*0.80)+'\n':
+      '• Se calcula una vez confirmada la prima oficial.\n')+
+    '\nAdjunto encontrarás la cotización oficial de Seguros Monterrey New York Life.\n\n'+
+    'Quedo a tus órdenes para cualquier duda o para avanzar con la contratación.\n\n'+
+    'Martín Márquez Guzmán\n'+
+    'EMA Seguros y Estrategias Patrimoniales\n'+
+    'Licencia CNSF G408760';
+  var url='https://mail.google.com/mail/?view=cm&to='+encodeURIComponent(email)+'&su='+encodeURIComponent(asunto)+'&body='+encodeURIComponent(cuerpo);
+  window.open(url,'_blank');
+}
+
+goTo(0);
+</script>
 </body>
 </html>
